@@ -1,0 +1,43 @@
+<div class="component-container">
+    <mat-card class="mat-elevation-z4">
+        <mat-card-title>Team History</mat-card-title>
+
+        <div class="divider">
+            <mat-divider></mat-divider>
+        </div>
+
+        <div class="component-container-header" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+            <!-- <span class="slide-toggle"> Male </span>
+            <div class="slide-toggle-gender">
+                <mat-slide-toggle class="slide-toggle" [(ngModel)]="checked" (change)="onToggle(checked)" matTooltip="Filter Team by Gender" matTooltipPosition="above"> Female </mat-slide-toggle>
+            </div> -->
+        </div>
+
+        <mat-card-content>
+            <div class="match-card-container" fxLayout="row wrap" fxLayout.sm="column" fxLayoutAlign="center">
+                <mat-card *ngFor="let teamlist of teamHistoryNested" class="team-history-card-container-fixed-height" fxFlex="22%" fxLayout="column">
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <span class="content-card-title">{{teamlist.teamName}}</span>
+                    </div>
+                    <div class="divider">
+                        <mat-divider inset></mat-divider>
+                    </div>
+                    <div fxLayout="column">
+                        <div *ngFor="let teammember of teamlist.superstar" fxLayout="row" fxLayoutAlign="space-between">
+                            <h5>&bull; {{teammember.superstarName}}</h5>
+                            <h5>{{teammember.isActive? "Current Member" : "Former Member"}}</h5>
+                        </div>
+                        
+                    </div>
+                </mat-card>
+            </div>
+        </mat-card-content>
+
+        <mat-divider inset></mat-divider>
+
+        <mat-card-actions fxLayoutAlign="end center">
+            <button mat-flat-button class="button-primary" (click)="onBack()" fxFlex="10%">Back</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
+

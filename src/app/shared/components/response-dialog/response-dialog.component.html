@@ -1,0 +1,92 @@
+<div class="global-dialog-header">
+    <div *ngIf="responsetype=='INFORMATION'">
+        <h1 mat-dialog-title>
+            <mat-icon class="icon-success">info</mat-icon>
+        </h1>
+
+        <mat-dialog-content>
+            <p>{{responsemessage}}</p>
+        </mat-dialog-content>
+    
+        <mat-dialog-actions fxLayoutAlign="end center">
+            <button mat-raised-button (click)="onSubmit()">Ok</button>
+        </mat-dialog-actions>
+    </div>
+
+    <div *ngIf="responsetype=='WARNING'">
+        <h1 mat-dialog-title>
+            <mat-icon class="icon-warning">warning</mat-icon>
+            {{responsetype}}
+        </h1>
+
+        <mat-dialog-content>
+            <p>{{responsemessage}}</p>
+        </mat-dialog-content>
+    
+        <mat-dialog-actions fxLayoutAlign="end center">
+            <button mat-raised-button (click)="onSubmit()">Close</button>
+        </mat-dialog-actions>
+    </div>
+
+    <div *ngIf="responsetype=='ERROR'">
+        <h1 mat-dialog-title>
+            <mat-icon class="icon-error">error</mat-icon>
+            {{responsetype}}
+        </h1>
+
+        <mat-dialog-content>
+            <p>{{responsemessage}}</p>
+        </mat-dialog-content>
+    
+        <mat-dialog-actions fxLayoutAlign="end center">
+            <button mat-raised-button [mat-dialog-close]>Close</button>
+        </mat-dialog-actions>
+    </div>
+
+    <div *ngIf="responsetype=='SUCCESS'">
+        <h1 mat-dialog-title>
+            <mat-icon class="icon-success">check_circle</mat-icon>
+            {{responsetype}}
+        </h1>
+
+        <mat-dialog-content>
+            <p>{{responsemessage}}</p>
+        </mat-dialog-content>
+    
+        <mat-dialog-actions fxLayoutAlign="end center">
+            <button mat-raised-button [mat-dialog-close]>Close</button>
+        </mat-dialog-actions>
+    </div>
+
+    <div *ngIf="responsetype=='QUESTION'">
+        <h1 mat-dialog-title>
+            <mat-icon class="icon-question">help</mat-icon>
+            Are you sure?
+        </h1>
+
+        <mat-dialog-content>
+            <p>{{responsemessage}}</p>
+        </mat-dialog-content>
+    
+        <mat-dialog-actions fxLayoutAlign="end center">
+            <button mat-raised-button (click)="onSubmit()">Yes</button>
+            <button mat-raised-button [mat-dialog-close]>No</button>
+        </mat-dialog-actions>
+    </div>
+
+    <div *ngIf="responsetype=='DELETE'">
+        <h1 mat-dialog-title>
+            <mat-icon class="icon-error ">cancel</mat-icon>
+            Deletion, Are you sure?
+        </h1>
+
+        <mat-dialog-content>
+            <p>{{responsemessage}}</p>
+        </mat-dialog-content>
+    
+        <mat-dialog-actions fxLayoutAlign="end center">
+            <button mat-raised-button (click)="onSubmit()">Yes</button>
+            <button mat-raised-button [mat-dialog-close]>No</button>
+        </mat-dialog-actions>
+    </div>
+</div>

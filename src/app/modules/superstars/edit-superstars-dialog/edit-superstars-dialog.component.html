@@ -1,0 +1,115 @@
+<mat-dialog-content class="dialog-header" fxLayout="row">
+    <h2 mat-dialog-title>Edit Superstar</h2>
+
+    <span class="spacer"></span>
+
+    <button mat-icon-button class="dialog-close-button" matTooltip="Close" [mat-dialog-close]>
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-dialog-content>
+
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="dialog-content">       
+    <mat-dialog-content fxfLayout="column" fxLayoutGap="10px">
+    
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>picture_in_picture</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Superstar Name</mat-label>
+                <input matInput formControlName="ctrl_superstarname" placeholder="Name of Superstar" autocomplete="off" required>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_superstarname'].hasError('required')">
+                    Name of Superstar is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>transgender</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Select Gender</mat-label>
+                <mat-select formControlName="ctrl_gender" placeholder="Select Gender" matTooltip="Click to select gender" required>
+                    <mat-option value="Male"><span>Male</span></mat-option>
+                    <mat-option value="Female"><span>Female</span></mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_gender'].hasError('required')">
+                    Gender of Superstar is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+    
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>people_outline</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Select Role</mat-label>
+                <mat-select formControlName="ctrl_role" placeholder="Select Role" matTooltip="Click to select role" required>
+                    <mat-option value="Face"><span>Face</span></mat-option>
+                    <mat-option value="Heel"><span>Heel</span></mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_role'].hasError('required')">
+                    Role of Superstar is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+       
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>groups</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Select Team</mat-label>
+                <mat-select formControlName="ctrl_teamid" placeholder="Select Team" matTooltip="Click to select team">
+                    <mat-option value=""><span>No Team</span></mat-option>
+                    <mat-option *ngFor="let data of teamData" [value]="data.teamId"><span>{{data.teamName}}</span></mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>slideshow</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Select Show</mat-label>
+                <mat-select formControlName="ctrl_showid" placeholder="Select Show" matTooltip="Click to select show">
+                    <mat-option value=""><span>No Show</span></mat-option>
+                    <mat-option *ngFor="let data of showData" [value]="data.showId"><span>{{data.showName}}</span></mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>personal_injury</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Injury Status</mat-label>
+                <mat-select formControlName="ctrl_isinjured" placeholder="Select Injury Status" matTooltip="Click to select injury status" required>
+                    <mat-option [value]="true"><span>Yes</span></mat-option>
+                    <mat-option [value]="false"><span>No</span></mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_isinjured'].hasError('required')">
+                    Status of Injury is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>toggle_on</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Status of Superstar</mat-label>
+                <mat-select formControlName="ctrl_isactive" placeholder="Select Status" matTooltip="Click to select status" required>
+                    <mat-option [value]="true"><span>Active</span></mat-option>
+                    <mat-option [value]="false"><span>Inactive</span></mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_isactive'].hasError('required')">
+                    Status of Superstar is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+    </mat-dialog-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-dialog-actions fxLayoutAlign="end center">
+        <button type="submit" mat-raised-button fxFlex="20%" matTooltip="Update">Update</button>
+    </mat-dialog-actions>  
+</form>

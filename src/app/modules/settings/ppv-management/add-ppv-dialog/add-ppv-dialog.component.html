@@ -1,0 +1,61 @@
+<mat-dialog-content class="dialog-header" fxLayout="row">
+    <h2 mat-dialog-title>Add New PPV</h2>
+
+    <span class="spacer"></span>
+
+    <button mat-icon-button class="dialog-close-button" matTooltip="Close" [mat-dialog-close]>
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-dialog-content>
+
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="dialog-content">       
+    <mat-dialog-content fxfLayout="column" fxLayoutGap="10px">
+    
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>picture_in_picture</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>PPV Name</mat-label>
+                <input matInput formControlName="ctrl_ppvname" placeholder="Name of PPV" autocomplete="off" required>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_ppvname'].hasError('required')">
+                    Name of PPV is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>calendar_month</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>PPV Month</mat-label>
+                <input matInput type="number" min="1" max="12" formControlName="ctrl_ppvmonth" placeholder="Month of PPV" autocomplete="off" required>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_ppvmonth'].hasError('required')">
+                    Month of PPV is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>slideshow</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Select Show</mat-label>
+                <mat-select formControlName="ctrl_showid" placeholder="Select Show" matTooltip="Click to select show" required>
+                    <mat-option *ngFor="let data of showData" [value]="data.showId"><span>{{data.showName === "Free Agent" ? "All": data.showName}}</span></mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_showid'].hasError('required')">
+                    Show is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+    </mat-dialog-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-dialog-actions fxLayoutAlign="end center">
+        <button type="submit" mat-raised-button fxFlex="20%" matTooltip="Save">Save</button>
+    </mat-dialog-actions>   
+    
+    <!-- <pre>{{formGroup.value | json}}</pre> -->
+</form>
