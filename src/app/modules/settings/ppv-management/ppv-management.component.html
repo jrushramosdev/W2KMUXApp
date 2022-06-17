@@ -40,7 +40,7 @@
 
                 <ng-container matColumnDef="showName">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Show </th>
-                    <td mat-cell *matCellDef="let element"> {{element.showName === "Free Agent" ? "All": element.showName}}</td>
+                    <td mat-cell *matCellDef="let element"> {{element.showName === "Free Agent" ? "All": element.showName}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="ppvOrder">
@@ -65,8 +65,8 @@
 
         <mat-divider inset></mat-divider>
 
-        <mat-card-actions fxLayoutGap="10px" fxLayoutAlign="end center">
+        <!-- <mat-card-actions fxLayoutGap="10px" fxLayoutAlign="end center">
              <button mat-flat-button class="button-primary" fxFlex="10%">Back</button>
-        </mat-card-actions>
+        </mat-card-actions> -->
     </mat-card>
 </div>

@@ -1,0 +1,99 @@
+<mat-dialog-content class="dialog-header" fxLayout="row">
+    <h2 mat-dialog-title>Edit Championship</h2>
+
+    <span class="spacer"></span>
+
+    <button mat-icon-button class="dialog-close-button" matTooltip="Close" [mat-dialog-close]>
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-dialog-content>
+
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="dialog-content">       
+    <mat-dialog-content fxfLayout="column" fxLayoutGap="10px">
+    
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>picture_in_picture</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Championship Name</mat-label>
+                <input matInput formControlName="ctrl_championshipname" placeholder="Name of Championship" autocomplete="off" required>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_championshipname'].hasError('required')">
+                    Name of Championship is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>title</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Select Championship Type</mat-label>
+                <mat-select formControlName="ctrl_championshiptypeid" placeholder="Select Championship Type" matTooltip="Click to select type" required>
+                    <mat-option *ngFor="let data of championshiptypeData" [value]="data.championshipTypeId"><span>{{data.championshipTypeName}}</span></mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_championshiptypeid'].hasError('required')">
+                    Type of Championship is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>slideshow</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Select Show</mat-label>
+                <mat-select formControlName="ctrl_showid" placeholder="Select Show" matTooltip="Click to select show">
+                    <mat-option *ngFor="let data of showData" [value]="data.showId"><span>{{data.showName === "Free Agent" ? "All": data.showName}}</span></mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_showid'].hasError('required')">
+                    Show is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+    
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>person</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Select Superstar</mat-label>
+                <mat-select formControlName="ctrl_superstarid" placeholder="Select Holder" matTooltip="Click to select holder">
+                    <mat-option value=""><span>No Holder</span></mat-option>
+                    <mat-option *ngFor="let data of superstarData" [value]="data.superstarId"><span>{{data.superstarName}}</span></mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+       
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>list</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Championship Order</mat-label>
+                <input matInput type="number" min="1" formControlName="ctrl_championshiporder" placeholder="Order of Championship" autocomplete="off" required>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_championshiporder'].hasError('required')">
+                    Order of championship is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>toggle_on</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Status of Superstar</mat-label>
+                <mat-select formControlName="ctrl_isactive" placeholder="Select Status" matTooltip="Click to select status" required>
+                    <mat-option [value]="true"><span>Active</span></mat-option>
+                    <mat-option [value]="false"><span>Inactive</span></mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_isactive'].hasError('required')">
+                    Status of Championship is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+    </mat-dialog-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-dialog-actions fxLayoutAlign="end center">
+        <button type="submit" mat-raised-button fxFlex="20%" matTooltip="Update">Update</button>
+    </mat-dialog-actions>  
+</form>

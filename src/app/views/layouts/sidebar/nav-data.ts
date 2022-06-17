@@ -52,16 +52,12 @@ export const navDropDownData = [
         label: 'Show'
     },
     {
-        routeLink: 'championship',
+        routeLink: 'settings/championshipmanagement',
         label: 'Championship'
     },
     {
         routeLink: 'settings/teammanagement',
         label: 'Team'
-    },
-    {
-        routeLink: 'settings/personamanagement',
-        label: 'Persona'
     },
     {
         routeLink: 'settings/ppvmanagement',

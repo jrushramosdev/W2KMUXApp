@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ChampionsService } from '../../shared/services/champions.service';
+import { ChampionshipManagementService } from '../../shared/services/championship-management.service';
 
 @Component({
   selector: 'app-champions',
@@ -10,7 +10,7 @@ export class ChampionsComponent implements OnInit {
 
   public champion: Array<any> = [];
 
-  constructor(private championsService: ChampionsService) { }
+  constructor(private championsService: ChampionshipManagementService) { }
 
   ngOnInit(): void {
     this.champion = this.championsService.getChampion()

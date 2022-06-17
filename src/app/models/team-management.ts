@@ -1,3 +1,4 @@
+//* Team Management /
 export interface TeamManagement {
     teamId: string;
     teamName: string;
@@ -14,6 +15,7 @@ export interface UpdateTeamManagement {
     isActive: string
 }
 
+//* Team History /
 export interface TeamHistory {
     teamHistoryShowName: string;
     totalMaleMemberCount: number;
