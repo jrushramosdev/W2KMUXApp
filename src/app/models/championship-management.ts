@@ -51,11 +51,18 @@ export interface UpdateChampionshipTypeManagement {
 
 //* Champions /
 export interface ChampionsList {
+    championsListShowName: string;
+    championsList: ChampionsNested[];
+}
+
+export interface ChampionsNested {
     championshipId: string;
     championshipName: string;
+    championshipShowId: string;
     championshipTypeId: string;
     championshipTypeName: string;
-    superstarList: ChampionsSuperstar[];
+    championshipTeamName: string;
+    superstars: ChampionsSuperstar[];
 }
 
 export interface ChampionsSuperstar {

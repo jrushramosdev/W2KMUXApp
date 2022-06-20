@@ -186,7 +186,7 @@ export class ChampionshipManagementService {
 
   //** Champions */
   getChampionsList() {
-    return this.http.get(this.baseUrl + this.championshipManagementApi + '/GetChampionsList');
+    return this.http.get(this.baseUrl + this.championshipManagementApi + '/GetChampionsNestedList');
   }
 
 }

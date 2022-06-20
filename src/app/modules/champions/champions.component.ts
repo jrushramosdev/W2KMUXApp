@@ -6,7 +6,7 @@ import { ResponseDialogService } from '../../shared/components/response-dialog/r
 import { SnackbarService } from '../../shared/components/snackbar/snackbar.service';
 import { NgxSpinnerService } from '../../shared/components/ngx-spinner/ngx-spinner.service';
 import { ShowManagement } from '../../models/show-management';
-import { ChampionsList } from '../../models/championship-management';
+import { ChampionsList, ChampionsNested } from '../../models/championship-management';
 
 @Component({
   selector: 'app-champions',
@@ -15,7 +15,8 @@ import { ChampionsList } from '../../models/championship-management';
 })
 export class ChampionsComponent implements OnInit {
   showData!: ShowManagement[];
-  ChampionsList!: ChampionsList[];
+  championsList: ChampionsList[] = [];
+  championsNested!: ChampionsNested[];
   checked: boolean = false;
 
   constructor(
@@ -58,7 +59,7 @@ export class ChampionsComponent implements OnInit {
 
     this.championshipManagementService.getChampionsList().subscribe(
       (result: any) => {
-        this.ChampionsList = result;
+        this.championsNested = result;
         this.prepareData();
         this.ngxSpinnerService.stop();
       }, error => {
@@ -72,38 +73,26 @@ export class ChampionsComponent implements OnInit {
   }
 
   prepareData() {
-    // this.showData.forEach(showdata => {
-    //   var teamhistoryNestedTemp: TeamHistoryNested[] = [];
-    //   var maleMemberCount = 0;
-    //   var femaleMemberCount = 0;
-    //   var totalMemberCount = 0;
+    this.showData.forEach(showdata => {
+      var championsNestedTemp: ChampionsNested[] = [];
 
-    //   this.teamHistoryNested.forEach(teamhistorynested => {
-    //     if (showdata.showId == teamhistorynested.teamShowId) {
-    //       if (teamhistorynested.teamGender.toLowerCase() == "male") {
-    //         maleMemberCount = maleMemberCount + teamhistorynested.teamCount;
-    //       }
-    //       else {
-    //         femaleMemberCount = femaleMemberCount + teamhistorynested.teamCount;
-    //       }
+      this.championsNested.forEach(championsNested => {
+        if (showdata.showId == championsNested.championshipShowId) {
+          championsNested.championshipTeamName = championsNested.superstars[0].teamName;
+          championsNestedTemp.push(championsNested);
+        }
+      })
 
-    //       totalMemberCount = totalMemberCount + teamhistorynested.teamCount;
-    //       teamhistoryNestedTemp.push(teamhistorynested);
-    //     }
-    //   })
-      
-    //   if (totalMemberCount != 0)
-    //   {
-    //     this.teamHistoryMasterData.push({
-    //       teamHistoryShowName: showdata.showName,
-    //       totalMaleMemberCount: maleMemberCount,
-    //       totalFemaleMemberCount: femaleMemberCount,
-    //       totalTeamMemberCount: totalMemberCount,
-    //       teamList: teamhistoryNestedTemp
-    //     })
-    //   }
-    // })
+      if (championsNestedTemp.length > 0) {
+        this.championsList.push({
+          championsListShowName: showdata.showName,
+          championsList: championsNestedTemp
+        })
+      }
+    })
+  }
 
-    // this.onFilter("Male");
+  openChampionHistory() {
+
   }
 }

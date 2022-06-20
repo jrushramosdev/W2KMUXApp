@@ -7,18 +7,18 @@
         </div>
 
         <div class="component-container-header" fxLayout="row" fxLayoutAlign="end center">
-            <button mat-raised-button>
-                View Champion History
+            <button mat-raised-button (click)="openChampionHistory()" matTooltip="View Champion History" matTooltipPosition="above">
+                <mat-icon>history</mat-icon>
             </button>
         </div>
 
         <mat-card-content>
             <mat-accordion class="match-accordion" multi>
-                <mat-expansion-panel *ngFor="let champion of champion; let i = index" [expanded]="true">
+                <mat-expansion-panel *ngFor="let champion of championsList; let i = index" [expanded]="true">
                     <mat-expansion-panel-header>
-                        <div class="match-accordion-panel-header-show" [ngClass]="'match-accordion-panel-header-show-'+champion.showName | lowercase"></div>
+                        <div class="match-accordion-panel-header-show" [ngClass]="'match-accordion-panel-header-show-'+champion.championsListShowName | lowercase"></div>
                         <mat-panel-title>
-                            {{champion.showName}}
+                            {{champion.championsListShowName=='Free Agent'?'Special':champion.championsListShowName}}
                         </mat-panel-title>
                         <mat-panel-description>
                             <!-- Type your name and age
@@ -26,13 +26,20 @@
                         </mat-panel-description>
                     </mat-expansion-panel-header>
                     
-                    <div class="match-card-container" fxLayoutGap="30px" fxLayout="row wrap" fxLayout.sm="column" fxLayoutAlign="center">
-                        <mat-card *ngFor="let championshiptype of champion.championshipType" fxFlex="15%" fxLayout="column" fxLayoutAlign="baseline center">
-                            <h4>{{championshiptype.championshipName}}</h4>
-                            <h4>{{championshiptype.superstarName}}</h4>
-                            <h4 *ngIf="championshiptype.superstarName2 != null">{{championshiptype.superstarName2}}</h4>
-                            <h5 *ngIf="championshiptype.ppvName != null">{{championshiptype.ppvName}}</h5>
-                            <h5 *ngIf="championshiptype.ppvName != null">{{championshiptype.reignCount}}</h5>
+                    <div class="match-card-container" fxLayout="row wrap" fxLayout.sm="column" fxLayoutAlign="center">
+                        <mat-card class="team-card" *ngFor="let championlist of champion.championsList" fxFlex="18%" fxLayout="column">
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <span class="content-card-title">{{championlist.championshipName}}</span>
+                            </div>
+                            <div class="divider">
+                                <mat-divider inset></mat-divider>
+                            </div>
+                            <div  fxLayoutGap="10px" fxLayout="row wrap" fxLayout.sm="column" fxLayoutAlign="center">
+                                <h5 *ngFor="let superstar of championlist.superstars" >&bull; {{superstar.superstarName}}</h5>
+                            </div>
+                            <div *ngIf="championlist.championshipTeamName !=null" fxLayoutAlign="center">
+                                <h5>({{championlist.championshipTeamName}})</h5>
+                            </div>
                         </mat-card>
                     </div>
                 </mat-expansion-panel>
@@ -56,8 +63,8 @@
 
         <mat-divider inset></mat-divider>
 
-        <mat-card-actions fxLayoutAlign="end center">
+        <!-- <mat-card-actions fxLayoutAlign="end center">
             <button mat-flat-button class="button-primary" fxFlex="10%">Done</button>
-        </mat-card-actions>
+        </mat-card-actions> -->
     </mat-card>
 </div>
