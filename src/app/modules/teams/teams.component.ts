@@ -33,42 +33,6 @@ export class TeamsComponent implements OnInit {
     this.gatherData();
   }
 
-  prepareData() {
-    this.showData.forEach(showdata => {
-      var teamhistoryNestedTemp: TeamHistoryNested[] = [];
-      var maleMemberCount = 0;
-      var femaleMemberCount = 0;
-      var totalMemberCount = 0;
-
-      this.teamHistoryNested.forEach(teamhistorynested => {
-        if (showdata.showId == teamhistorynested.teamShowId) {
-          if (teamhistorynested.teamGender.toLowerCase() == "male") {
-            maleMemberCount = maleMemberCount + teamhistorynested.teamCount;
-          }
-          else {
-            femaleMemberCount = femaleMemberCount + teamhistorynested.teamCount;
-          }
-
-          totalMemberCount = totalMemberCount + teamhistorynested.teamCount;
-          teamhistoryNestedTemp.push(teamhistorynested);
-        }
-      })
-      
-      if (totalMemberCount != 0)
-      {
-        this.teamHistoryMasterData.push({
-          teamHistoryShowName: showdata.showName,
-          totalMaleMemberCount: maleMemberCount,
-          totalFemaleMemberCount: femaleMemberCount,
-          totalTeamMemberCount: totalMemberCount,
-          teamList: teamhistoryNestedTemp
-        })
-      }
-    })
-
-    this.onFilter("Male");
-  }
-
   gatherData() {
     this.getShowList();
     this.getTeamHistoryList();
@@ -122,6 +86,42 @@ export class TeamsComponent implements OnInit {
     }
   }
 
+  prepareData() {
+    this.showData.forEach(showdata => {
+      var teamhistoryNestedTemp: TeamHistoryNested[] = [];
+      var maleMemberCount = 0;
+      var femaleMemberCount = 0;
+      var totalMemberCount = 0;
+
+      this.teamHistoryNested.forEach(teamhistorynested => {
+        if (showdata.showId == teamhistorynested.teamShowId) {
+          if (teamhistorynested.teamGender.toLowerCase() == "male") {
+            maleMemberCount = maleMemberCount + teamhistorynested.teamCount;
+          }
+          else {
+            femaleMemberCount = femaleMemberCount + teamhistorynested.teamCount;
+          }
+
+          totalMemberCount = totalMemberCount + teamhistorynested.teamCount;
+          teamhistoryNestedTemp.push(teamhistorynested);
+        }
+      })
+      
+      if (totalMemberCount != 0)
+      {
+        this.teamHistoryMasterData.push({
+          teamHistoryShowName: showdata.showName,
+          totalMaleMemberCount: maleMemberCount,
+          totalFemaleMemberCount: femaleMemberCount,
+          totalTeamMemberCount: totalMemberCount,
+          teamList: teamhistoryNestedTemp
+        })
+      }
+    })
+
+    this.onFilter("Male");
+  }
+
   onFilter(gender: string) {
     const teamlist = [...this.teamHistoryMasterData]; // clone array
 
@@ -129,7 +129,14 @@ export class TeamsComponent implements OnInit {
       return {...teams, teamList: teams.teamList.filter((subElement: any) => subElement.teamGender === gender)}
     })
 
+    var sortedData = filteredData.map((teams) => {
+      return {...teams, teamList: teams.teamList.sort((a : any, b : any) => a.teamChampionship === ""? 1 : -1)}
+    })
+
     this.teamHistory = filteredData;
+    //this.teamHistory = sortedData;
+    console.log(filteredData)
+    console.log(sortedData)
   }
 
 }

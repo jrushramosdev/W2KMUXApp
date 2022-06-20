@@ -34,16 +34,33 @@ export interface UpdateChampionshipManagement {
 export interface ChampionshipTypeManagement {
     championshipTypeId: string;
     championshipTypeName: string;
-    isActive: boolean
+    isActive: boolean;
+    championshipTypeOrder: number;
 }
 
 export interface AddChampionshipTypeManagement {
     championshipTypeName: string;
-    isActive: boolean
 }
 
 export interface UpdateChampionshipTypeManagement {
     championshipTypeId: string;
     championshipTypeName: string;
-    isActive: boolean
+    isActive: boolean;
+    championshipTypeOrder: number;
+}
+
+//* Champions /
+export interface ChampionsList {
+    championshipId: string;
+    championshipName: string;
+    championshipTypeId: string;
+    championshipTypeName: string;
+    superstarList: ChampionsSuperstar[];
+}
+
+export interface ChampionsSuperstar {
+    teamId: string;
+    teamName: string;
+    superstarId: string;
+    superstarName: string;
 }

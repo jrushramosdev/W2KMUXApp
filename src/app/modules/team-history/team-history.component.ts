@@ -52,7 +52,6 @@ export class TeamHistoryComponent implements OnInit {
     })
 
     this.teamHistoryNested = sortedData;
-    console.log(this.teamHistoryNested)
   }
 
   onBack() {

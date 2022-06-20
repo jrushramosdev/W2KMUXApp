@@ -142,7 +142,7 @@ export class ChampionshipManagementService {
     return this.championArray;
   }
 
-  //** Championship */
+  //** Championship Management */
   getChampionshipList() {
     return this.http.get(this.baseUrl + this.championshipManagementApi + '/GetChampionshipManagementList');
   }
@@ -182,6 +182,11 @@ export class ChampionshipManagementService {
 
   deleteChampionshipType(id: string) {
     return this.http.delete(this.baseUrl + this.championshipTypeManagementApi + '/DeleteChampionshipTypeManagement/'+ id);
+  }
+
+  //** Champions */
+  getChampionsList() {
+    return this.http.get(this.baseUrl + this.championshipManagementApi + '/GetChampionsList');
   }
 
 }

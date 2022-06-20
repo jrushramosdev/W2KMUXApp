@@ -15,6 +15,7 @@ export class TeamManagementService {
 
   constructor(private http: HttpClient) { }
 
+  //** Team Management */
   getTeamList() {
     return this.http.get(this.baseUrl + this.teamManagementApi + '/GetTeamManagementList');
   }
@@ -35,6 +36,7 @@ export class TeamManagementService {
     return this.http.delete(this.baseUrl + this.teamManagementApi + '/DeleteTeamManagement/'+ id);
   }
 
+  //** Team History */
   getTeamHistoryList(isactiveonly: string) {
     return this.http.get(this.baseUrl + this.teamHistoryApi + '/GetTeamHistoryNestedList/'+ isactiveonly);
   }

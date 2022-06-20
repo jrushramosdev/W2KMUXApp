@@ -35,7 +35,7 @@
                     </mat-expansion-panel-header>
                     
                     <div class="match-card-container" fxLayout="row wrap" fxLayout.sm="column" fxLayoutAlign="center">
-                        <mat-card *ngFor="let teamlist of teams.teamList" fxFlex="15%" fxLayout="column">
+                        <mat-card class="team-card" [ngClass]="{'team-card-champion': teamlist.teamChampionship != ''}" *ngFor="let teamlist of teams.teamList" fxFlex="15%" fxLayout="column">
                             <div fxLayout="row" fxLayoutAlign="center center">
                                 <span class="content-card-title">{{teamlist.teamName}}</span>
                             </div>
@@ -44,6 +44,9 @@
                             </div>
                             <div  fxLayoutGap="10px" fxLayout="row wrap" fxLayout.sm="column" fxLayoutAlign="center">
                                 <h5 *ngFor="let teammember of teamlist.superstar" >&bull; {{teammember.superstarName}}</h5>
+                            </div>
+                            <div *ngIf="teamlist.teamChampionship !=''" fxLayoutAlign="center">
+                                <h5>{{teamlist.teamChampionship}}</h5>
                             </div>
                         </mat-card>
                     </div>

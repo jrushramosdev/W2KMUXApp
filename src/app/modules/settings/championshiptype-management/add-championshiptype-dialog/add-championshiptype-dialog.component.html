@@ -1,1 +1,35 @@
-<p>add-championshiptype-dialog works!</p>
+<mat-dialog-content class="dialog-header" fxLayout="row">
+    <h2 mat-dialog-title>Add New Championship Type</h2>
+
+    <span class="spacer"></span>
+
+    <button mat-icon-button class="dialog-close-button" matTooltip="Close" [mat-dialog-close]>
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-dialog-content>
+
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="dialog-content">       
+    <mat-dialog-content fxfLayout="column" fxLayoutGap="10px">
+    
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>picture_in_picture</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Championship Type Name</mat-label>
+                <input matInput formControlName="ctrl_championshiptypename" placeholder="Name of Championship Type" autocomplete="off" required>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_championshiptypename'].hasError('required')">
+                    Name of Championship Type is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        
+    </mat-dialog-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-dialog-actions fxLayoutAlign="end center">
+        <button type="submit" mat-raised-button fxFlex="20%" matTooltip="Save">Save</button>
+    </mat-dialog-actions>   
+    
+    <!-- <pre>{{formGroup.value | json}}</pre> -->
+</form>

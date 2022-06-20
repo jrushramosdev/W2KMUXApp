@@ -41,5 +41,8 @@ export interface TeamHistorySuperstar {
     superstarGender: string;
     superstarRole: string;
     superstarShowId: string;
+    championshipId: string;
+    championshipTypeId: string;
+    championshipName: string;
     isActive: boolean;
 }

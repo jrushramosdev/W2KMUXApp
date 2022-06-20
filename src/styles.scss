@@ -47,7 +47,7 @@ $colors: (
 }
 
 .table-fixed-height-container {
-    height: 640px;
+    height: 600px;
     overflow: auto;
 
     tr.mat-footer-row {
@@ -177,6 +177,16 @@ $colors: (
     .match-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 4px 17px ColorScheme(BlackSecondaryColor);
+    }
+
+    .team-card {
+        margin-bottom: 15px;
+    }
+
+    .team-card-champion {
+        border-left-style: solid;
+        border-right-style: solid;
+        border-color: ColorScheme(YellowPrimaryColor);
     }
 }
 
