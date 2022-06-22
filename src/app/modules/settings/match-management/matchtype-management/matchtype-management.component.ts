@@ -3,25 +3,25 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { AddTeamDialogComponent } from './add-team-dialog/add-team-dialog.component';
-import { EditTeamDialogComponent } from './edit-team-dialog/edit-team-dialog.component';
-import { TeamManagementService } from '../../../shared/services/team-management.service';
-import { ResponseDialogService } from '../../../shared/components/response-dialog/response-dialog.service';
-import { SnackbarService } from '../../../shared/components/snackbar/snackbar.service';
-import { NgxSpinnerService } from '../../../shared/components/ngx-spinner/ngx-spinner.service';
-import { TeamManagement } from '../../../models/team-management';
+import { AddMatchtypeDialogComponent } from './add-matchtype-dialog/add-matchtype-dialog.component';
+import { EditMatchtypeDialogComponent } from './edit-matchtype-dialog/edit-matchtype-dialog.component';
+import { MatchManagementService } from 'src/app/shared/services/match-management.service'; 
+import { ResponseDialogService } from '../../../../shared/components/response-dialog/response-dialog.service';
+import { SnackbarService } from '../../../../shared/components/snackbar/snackbar.service';
+import { NgxSpinnerService } from '../../../../shared/components/ngx-spinner/ngx-spinner.service';
+import { MatchTypeManagement } from '../../../../models/match-management';
 
 @Component({
-  selector: 'app-team-management',
-  templateUrl: './team-management.component.html',
-  styleUrls: ['./team-management.component.scss']
+  selector: 'app-matchtype-management',
+  templateUrl: './matchtype-management.component.html',
+  styleUrls: ['./matchtype-management.component.scss']
 })
-export class TeamManagementComponent implements OnInit, AfterViewInit {
+export class MatchtypeManagementComponent implements OnInit {
   //** Material Table Configuration */
-  displayedColumns: string[] = ['teamName','action'];
-  dataSource: MatTableDataSource<TeamManagement>;
+  displayedColumns: string[] = ['matchtypeName','matchtypeOrder','action'];
+  dataSource: MatTableDataSource<MatchTypeManagement>;
 
-  teamManagement!: TeamManagement[];
+  matchTypeManagement!: MatchTypeManagement[];
   isNoRecord: boolean = true;
   checked: boolean = false;
 
@@ -35,17 +35,18 @@ export class TeamManagementComponent implements OnInit, AfterViewInit {
 
   constructor(
     public dialog: MatDialog, 
-    private service: TeamManagementService,
+    private service: MatchManagementService,
     private responseDialogService: ResponseDialogService,
     private snackbarService: SnackbarService,
     private ngxSpinnerService: NgxSpinnerService
   ) { 
-    this.dataSource = new MatTableDataSource(this.teamManagement);
+    this.dataSource = new MatTableDataSource(this.matchTypeManagement);
   }
+
 
   ngOnInit(): void {
     this.isNoRecord = true;
-    this.getTeamManagementList();
+    this.getMatchTypeManagementList();
   }
 
   ngAfterViewInit() {
@@ -62,35 +63,16 @@ export class TeamManagementComponent implements OnInit, AfterViewInit {
     };
   }
 
-  onToggleFilter(checked: boolean) {
-    const dataList = [...this.teamManagement]; // clone array
-
-    if (checked == true) {
-      var filteredData = dataList;
-    }
-    else {
-      var filteredData = dataList.filter((data: any) => data.isActive.toString() === "true");
-    }
-
-    this.dataSource.data = filteredData;
-  }
-
-  // isActiveFilter(){   
-  //   this.dataSource.filter = "true";
-    
-  //   if (this.dataSource.paginator) {
-  //     this.dataSource.paginator.firstPage();
-  //   };
-  // }
-
-  getTeamManagementList() {
+  getMatchTypeManagementList() {
     this.ngxSpinnerService.start("LOADING");
 
-    this.service.getTeamList().subscribe(
+    this.service.getMatchTypeList().subscribe(
       (result: any) => {
-        this.teamManagement = result;
-        this.onToggleFilter(this.checked);
-        this.isNoRecord = false;
+        if (result.length > 0) {
+          this.matchTypeManagement = result;
+          this.dataSource.data = this.matchTypeManagement;
+          this.isNoRecord = false;
+        }
         this.ngxSpinnerService.stop();
       }, error => {
         this.ngxSpinnerService.stop();
@@ -104,14 +86,14 @@ export class TeamManagementComponent implements OnInit, AfterViewInit {
   }
 
   onDelete(element: any) {
-    let dialog = this.responseDialogService.start("DELETE","Are you sure to delete this Team '"+element.teamName+"'?");
+    let dialog = this.responseDialogService.start("DELETE","Are you sure to delete this Team '"+element.matchTypeName+"'?");
 
     dialog.afterClosed().subscribe(dialogresult => {
       if (dialogresult != undefined) {
         if (dialogresult == "OK") {
           this.ngxSpinnerService.start("DELETING");
 
-          this.service.deleteTeam(element.teamId).subscribe(
+          this.service.deleteMatchType(element.matchTypeId).subscribe(
             (result: any) => {
               this.ngxSpinnerService.stop();
               this.responseDialogService.start("SUCCESS", result);
@@ -129,7 +111,7 @@ export class TeamManagementComponent implements OnInit, AfterViewInit {
   }
 
   openAddDialog() {
-    let dialogRef = this.dialog.open(AddTeamDialogComponent, {
+    let dialogRef = this.dialog.open(AddMatchtypeDialogComponent, {
       minWidth: '35vw',
       disableClose: true
     });
@@ -141,11 +123,11 @@ export class TeamManagementComponent implements OnInit, AfterViewInit {
   }
 
   openEditDialog(element: any) {
-    let dialogRef = this.dialog.open(EditTeamDialogComponent, {
+    let dialogRef = this.dialog.open(EditMatchtypeDialogComponent, {
       minWidth: '35vw',
       disableClose: true,
       data: {
-        id: element.teamId
+        id: element.matchTypeId
       }
     });
     dialogRef.afterClosed().subscribe(result => {

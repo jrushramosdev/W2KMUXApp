@@ -1,0 +1,22 @@
+<p>champion-history works!</p>
+
+<div fxLayout="row">
+    <table *ngFor="let championship of championshipList">
+        <div>
+            <span>{{championship.championshipName}}</span>
+        </div>
+        <div>
+            <tr>
+                <th>Name</th>
+                <th>PPV</th>
+                <th>Count</th>
+            </tr>
+            <tr *ngFor="let champion of championship.championsList">
+                <td>{{champion.superstarName}}</td>
+                <td>{{champion.ppvName}}</td>
+                <td>{{champion.reignCount}}</td>
+            </tr>
+        </div>
+    </table>
+</div>
+

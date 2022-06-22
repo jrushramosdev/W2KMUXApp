@@ -93,6 +93,6 @@ export class ChampionsComponent implements OnInit {
   }
 
   openChampionHistory() {
-
+    this.router.navigate(['championhistory'])
   }
 }

@@ -19,11 +19,13 @@ const routes: Routes = [
       { path: 'teams', loadChildren: () => import('./modules/teams/teams.module').then(m => m.TeamsModule) },
       { path: 'teamhistory', loadChildren: () => import('./modules/team-history/team-history.module').then(m => m.TeamHistoryModule) },
       { path: 'champions', loadChildren: () => import('./modules/champions/champions.module').then(m => m.ChampionsModule) },
+      { path: 'championhistory', loadChildren: () => import('./modules/champion-history/champion-history.module').then(m => m.ChampionHistoryModule) },
       { path: 'settings/showmanagement', loadChildren: () => import('./modules/settings/show-management/show-management.module').then(m => m.ShowManagementModule) },
       { path: 'settings/championshipmanagement', loadChildren: () => import('./modules/settings/championship-management/championship-management.module').then(m => m.ChampionshipManagementModule) },
       { path: 'settings/championshiptypemanagement', loadChildren: () => import('./modules/settings/championshiptype-management/championshiptype-management.module').then(m => m.ChampionshipTypeManagementModule) },
       { path: 'settings/teammanagement', loadChildren: () => import('./modules/settings/team-management/team-management.module').then(m => m.TeamManagementModule) },
       { path: 'settings/ppvmanagement', loadChildren: () => import('./modules/settings/ppv-management/ppv-management.module').then(m => m.PpvManagementModule) },
+      { path: 'settings/matchmanagement', loadChildren: () => import('./modules/settings/match-management/match-management.module').then(m => m.MatchManagementModule) },
     ]
   }
 ];

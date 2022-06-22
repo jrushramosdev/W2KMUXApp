@@ -1,0 +1,33 @@
+<mat-dialog-content class="dialog-header" fxLayout="row">
+    <h2 mat-dialog-title>Add New Match Type</h2>
+
+    <span class="spacer"></span>
+
+    <button mat-icon-button class="dialog-close-button" matTooltip="Close" [mat-dialog-close]>
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-dialog-content>
+
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="dialog-content">       
+    <mat-dialog-content fxfLayout="column" fxLayoutGap="10px">
+    
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>picture_in_picture</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Match Type Name</mat-label>
+                <input matInput formControlName="ctrl_matchtypename" placeholder="Name of Match Type" autocomplete="off" required>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_matchtypename'].hasError('required')">
+                    Name of Match Type is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+    </mat-dialog-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-dialog-actions fxLayoutAlign="end center">
+        <button type="submit" mat-raised-button fxFlex="20%" matTooltip="Save">Save</button>
+    </mat-dialog-actions>   
+</form>

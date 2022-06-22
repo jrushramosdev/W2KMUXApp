@@ -133,10 +133,7 @@ export class TeamsComponent implements OnInit {
       return {...teams, teamList: teams.teamList.sort((a : any, b : any) => a.teamChampionship === ""? 1 : -1)}
     })
 
-    this.teamHistory = filteredData;
-    //this.teamHistory = sortedData;
-    console.log(filteredData)
-    console.log(sortedData)
+    this.teamHistory = sortedData;
   }
 
 }
