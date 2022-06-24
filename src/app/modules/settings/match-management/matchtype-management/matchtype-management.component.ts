@@ -16,7 +16,7 @@ import { MatchTypeManagement } from '../../../../models/match-management';
   templateUrl: './matchtype-management.component.html',
   styleUrls: ['./matchtype-management.component.scss']
 })
-export class MatchtypeManagementComponent implements OnInit {
+export class MatchtypeManagementComponent implements OnInit, AfterViewInit {
   //** Material Table Configuration */
   displayedColumns: string[] = ['matchtypeName','matchtypeOrder','action'];
   dataSource: MatTableDataSource<MatchTypeManagement>;
@@ -68,11 +68,9 @@ export class MatchtypeManagementComponent implements OnInit {
 
     this.service.getMatchTypeList().subscribe(
       (result: any) => {
-        if (result.length > 0) {
-          this.matchTypeManagement = result;
-          this.dataSource.data = this.matchTypeManagement;
-          this.isNoRecord = false;
-        }
+        this.matchTypeManagement = result;
+        this.dataSource.data = this.matchTypeManagement;
+        this.isNoRecord = false;
         this.ngxSpinnerService.stop();
       }, error => {
         this.ngxSpinnerService.stop();
@@ -86,7 +84,7 @@ export class MatchtypeManagementComponent implements OnInit {
   }
 
   onDelete(element: any) {
-    let dialog = this.responseDialogService.start("DELETE","Are you sure to delete this Team '"+element.matchTypeName+"'?");
+    let dialog = this.responseDialogService.start("DELETE","Are you sure to delete this Match Type '"+element.matchTypeName+"'?");
 
     dialog.afterClosed().subscribe(dialogresult => {
       if (dialogresult != undefined) {

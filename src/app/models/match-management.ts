@@ -37,6 +37,7 @@ export interface MatchFormatManagement {
     matchFormatId: string;
     matchFormatName: string;
     matchTypeId: string;
+    matchTypeName: string;
     teamsCount: number;
     handicapCount: number;
     participantCount: number;

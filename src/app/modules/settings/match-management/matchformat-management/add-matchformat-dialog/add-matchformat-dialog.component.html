@@ -1,0 +1,85 @@
+<mat-dialog-content class="dialog-header" fxLayout="row">
+    <h2 mat-dialog-title>Add New Match Format</h2>
+
+    <span class="spacer"></span>
+
+    <button mat-icon-button class="dialog-close-button" matTooltip="Close" [mat-dialog-close]>
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-dialog-content>
+
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="dialog-content">       
+    <mat-dialog-content fxfLayout="column" fxLayoutGap="10px">
+    
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>picture_in_picture</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Match Format Name</mat-label>
+                <input matInput formControlName="ctrl_matchformatname" placeholder="Name of Match Format" autocomplete="off" required>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_matchformatname'].hasError('required')">
+                    Name of Match Format is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>title</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Select Match Type</mat-label>
+                <mat-select formControlName="ctrl_matchtypeid" placeholder="Select Match Type" matTooltip="Click to select match type" required>
+                    <mat-option *ngFor="let data of matchTypeData" [value]="data.matchTypeId" (click)="changeMatchType(data.matchTypeName)"><span>{{data.matchTypeName}}</span></mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_matchtypeid'].hasError('required')">
+                    Type of Match is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>numbers</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Team Count</mat-label>
+                <input matInput type="number" min="2" formControlName="ctrl_teamscount" placeholder="Count of Team" autocomplete="off" required>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_teamscount'].hasError('required')">
+                    Count of Team is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div *ngIf="handicap" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>numbers</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Handicap Count</mat-label>
+                <input matInput type="number" min="0" formControlName="ctrl_handicapcount" placeholder="Count of Handicap" autocomplete="off" required>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_handicapcount'].hasError('required')">
+                    Count of Handicap is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>numbers</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Participant Count</mat-label>
+                <input matInput type="number" min="1" formControlName="ctrl_participantcount" placeholder="Count of Participant" autocomplete="off" required>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_participantcount'].hasError('required')">
+                    Count of Participant is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+    </mat-dialog-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-dialog-actions fxLayoutAlign="end center">
+        <button type="submit" mat-raised-button fxFlex="20%" matTooltip="Save">Save</button>
+    </mat-dialog-actions>   
+    
+    <!-- <pre>{{formGroup.value | json}}</pre> -->
+</form>

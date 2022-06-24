@@ -9,6 +9,10 @@ import { MatchtypeManagementComponent } from './matchtype-management/matchtype-m
 import { MatchtitleManagementComponent } from './matchtitle-management/matchtitle-management.component';
 import { AddMatchtypeDialogComponent } from './matchtype-management/add-matchtype-dialog/add-matchtype-dialog.component';
 import { EditMatchtypeDialogComponent } from './matchtype-management/edit-matchtype-dialog/edit-matchtype-dialog.component';
+import { AddMatchformatDialogComponent } from './matchformat-management/add-matchformat-dialog/add-matchformat-dialog.component';
+import { EditMatchformatDialogComponent } from './matchformat-management/edit-matchformat-dialog/edit-matchformat-dialog.component';
+import { AddMatchtitleDialogComponent } from './matchtitle-management/add-matchtitle-dialog/add-matchtitle-dialog.component';
+import { EditMatchtitleDialogComponent } from './matchtitle-management/edit-matchtitle-dialog/edit-matchtitle-dialog.component';
 
 
 @NgModule({
@@ -18,7 +22,11 @@ import { EditMatchtypeDialogComponent } from './matchtype-management/edit-matcht
     MatchtypeManagementComponent,
     MatchtitleManagementComponent,
     AddMatchtypeDialogComponent,
-    EditMatchtypeDialogComponent
+    EditMatchtypeDialogComponent,
+    AddMatchformatDialogComponent,
+    EditMatchformatDialogComponent,
+    AddMatchtitleDialogComponent,
+    EditMatchtitleDialogComponent
   ],
   imports: [
     CommonModule,
