@@ -23,19 +23,19 @@ import { AddMatchFormatManagement, UpdateMatchFormatManagement } from '../../mod
     }
 
     getMatchTitle(id: string) {
-        return this.http.get(this.baseUrl + this.matchTitleManagementApi + '/GettMatchTitleManagement/'+ id);
+        return this.http.get(this.baseUrl + this.matchTitleManagementApi + '/GetMatchTitleManagement/'+ id);
     }
 
     addMatchTitle(matchtitle: AddMatchTitleManagement) {
-        return this.http.post(this.baseUrl + this.matchTitleManagementApi + '/AddtMatchTitleManagement', matchtitle);
+        return this.http.post(this.baseUrl + this.matchTitleManagementApi + '/AddMatchTitleManagement', matchtitle);
     }
 
     updateMatchTitle(matchtitle: UpdateMatchTitleManagement) {
-        return this.http.put(this.baseUrl + this.matchTitleManagementApi + '/UpdatetMatchTitleManagement', matchtitle);
+        return this.http.put(this.baseUrl + this.matchTitleManagementApi + '/UpdateMatchTitleManagement', matchtitle);
     }
 
     deleteMatchTitle(id: string) {
-        return this.http.delete(this.baseUrl + this.matchTitleManagementApi + '/DeletetMatchTitleManagement/'+ id);
+        return this.http.delete(this.baseUrl + this.matchTitleManagementApi + '/DeleteMatchTitleManagement/'+ id);
     }
 
     //** Match Type Management */

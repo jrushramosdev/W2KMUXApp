@@ -1,0 +1,29 @@
+<div class="component-container">
+    <mat-card class="mat-elevation-z4">
+        <mat-card-title>PPV Title</mat-card-title>
+
+        <div class="divider">
+            <mat-divider></mat-divider>
+        </div>
+
+        <mat-card-content fxLayout="column">
+            <div *ngFor="let data of ppvManagement">
+                <a class="ppv-list-container" fxLayout="row" fxLayoutGap="10px" [routerLink]="['/ppvmatch/', data.ppvId, ppvmatchCount]" routerLinkActive="ppvactive" [routerLinkActiveOptions]="{exact: true}">
+                    <div fxLayout="column">
+                        <div class="dot"></div>
+                        <div class="line"></div>
+                    </div>
+                    <div>
+                        <span class="ppv-list-link">{{data.ppvName}} {{ppvmatchCount}}</span>
+                    </div>
+                </a>
+            </div>
+        </mat-card-content>
+
+        <mat-divider inset></mat-divider>
+
+        <!-- <mat-card-actions fxLayoutGap="10px" fxLayoutAlign="end center">
+            <button mat-flat-button class="button-primary" fxFlex="10%">Done</button>
+        </mat-card-actions> -->
+    </mat-card>
+</div>

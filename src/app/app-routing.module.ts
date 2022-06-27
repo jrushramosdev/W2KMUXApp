@@ -13,7 +13,7 @@ const routes: Routes = [
     component: MainContentComponent,
     children: [
       { path: 'dashboard', loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule) },
-      { path: 'ppvmatch', loadChildren: () => import('./modules/ppv-match/ppv-match.module').then(m => m.PpvMatchModule) },
+      { path: 'ppvmatch/:ppvid/:ppvcount', loadChildren: () => import('./modules/ppv-match/ppv-match.module').then(m => m.PpvMatchModule) },
       { path: 'roster', loadChildren: () => import('./modules/roster/roster.module').then(m => m.RosterModule) },
       { path: 'superstars', loadChildren: () => import('./modules/superstars/superstars.module').then(m => m.SuperstarsModule) },
       { path: 'teams', loadChildren: () => import('./modules/teams/teams.module').then(m => m.TeamsModule) },

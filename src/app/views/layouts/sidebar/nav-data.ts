@@ -5,7 +5,7 @@ export const navData = [
         label: 'Dashboard'
     },
     {
-        routeLink: 'ppvmatch',
+        routeLink: 'ppvmatch/default/1',
         icon: 'assignment',
         label: 'PPV Match'
     },

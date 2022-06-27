@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http'; 
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { PPVMatchLatest } from 'src/app/models/ppv-match';
 
 @Injectable({
   providedIn: 'root'
@@ -139,9 +142,20 @@ export class PpvMatchService {
     }
   ];
 
-  constructor() { }
+  baseUrl = environment.baseUrl;
+  ppvMatchApi = '/PPVMatch'
 
-  getPPVMatch() {
+  constructor(private http: HttpClient) { }
+
+  getPPVMatchArray() {
     return this.ppvmatchArray;
+  }
+
+  getPPVMatchList(ppvid: string, ppvcount: number) {
+    return this.http.get(this.baseUrl + this.ppvMatchApi + '/GetPPVMatchNestedList/'+ ppvid + '/' + ppvcount);
+  }
+
+  getPPVMatchLatest() {
+    return this.http.get(this.baseUrl + this.ppvMatchApi + '/GetPPVMatchLatest');
   }
 }

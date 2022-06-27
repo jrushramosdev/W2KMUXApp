@@ -1,65 +1,83 @@
-<div class="component-container">
-    <mat-card class="mat-elevation-z4">
-        <mat-card-title>PPV Match</mat-card-title>
-
-        <div class="divider">
-            <mat-divider></mat-divider>
-        </div>
-
-        <div class="component-container-header" fxLayout="row" fxLayoutAlign="space-between">
-            <div fxLayoutGap="5px" fxFlex="66" fxFlexOffset="15" fxLayoutAlign="center center">
-                <button mat-icon-button #tooltip="matTooltip" matTooltip="Info about the action" matTooltipPosition="left">
-                    <mat-icon>keyboard_double_arrow_left</mat-icon>
-                </button>
-                <div class="component-container-header-title">Wrestlemania</div>
-                <button mat-icon-button #tooltip="matTooltip" matTooltip="Info about the action" matTooltipPosition="right">
-                    <mat-icon>keyboard_double_arrow_right</mat-icon>
-                </button>
-            </div>
-
-            <div fxflex>
-                <button mat-raised-button matTooltip="Add New Match" matTooltipPosition="left">
-                    <mat-icon>add_circle_outline</mat-icon>
-                </button>
-            </div>
-        </div>
-
-        <mat-card-content>
-            <mat-accordion class="match-accordion" multi>
-                <mat-expansion-panel *ngFor="let ppvmatch of ppvmatch; let i = index">
-                    <mat-expansion-panel-header>
-                        <div class="match-accordion-panel-header-show" [ngClass]="'match-accordion-panel-header-show-'+ppvmatch.matchShow"></div>
-                        <mat-panel-title>
-                            {{ppvmatch.matchName}}
-                        </mat-panel-title>
-                        <mat-panel-description>
-                            <!-- Type your name and age
-                            <mat-icon>account_circle</mat-icon> -->
-                        </mat-panel-description>
-                        <button mat-icon-button class="match-accordion-panel-header-button" #tooltip="matTooltip" matTooltip="Edit Match {{ppvmatch.matchId}}" matTooltipPosition="left" (click)="$event.stopPropagation();">
-                            <mat-icon>edit</mat-icon>
+<div fxLayout="row">
+    <div fxFlex="100">
+        <div class="component-container">
+            <mat-card class="mat-elevation-z4">
+                <mat-card-title>PPV Match</mat-card-title>
+    
+                <div class="divider">
+                    <mat-divider></mat-divider>
+                </div>
+    
+                <div class="component-container-header" fxLayout="row" fxLayoutAlign="space-between">
+                    <div fxLayoutGap="5px" fxFlex="66" fxFlexOffset="15" fxLayoutAlign="center center">
+                        <button mat-icon-button (click)="navigateRoute(ppvCount-1)" #tooltip="matTooltip" matTooltip="{{ppvName}} {{ppvCount-1}}" matTooltipPosition="left" [disabled]="ppvCount-1 == 0">
+                            <mat-icon>keyboard_double_arrow_left</mat-icon>
                         </button>
-                    </mat-expansion-panel-header>
-                    
-                    <div class="match-card-container" fxLayout="row wrap" fxLayout.sm="column" fxLayoutAlign="center">
-                        <mat-card class="match-card" 
-                        [ngClass]="{'match-card-result-winner': team.isWinner === true, 'match-card-result-loser': team.isWinner === false}"
-                        *ngFor="let team of ppvmatch.matchInfo" fxLayout="column" 
-                        (click)="winner(team.teamNumber, ppvmatch.matchId)">
-                            <mat-form-field appearance="outline" *ngFor="let participant of team.teamParticipant">
-                                <input matInput value="{{participant.participantName}}" disabled>
-                            </mat-form-field>
-                            <span class="match-card-status-text" *ngIf="team.isWinner">Winner</span>
-                        </mat-card>
+                        <div class="component-container-header-title">{{ppvName}} {{ppvCount}}</div>
+                        <button mat-icon-button (click)="navigateRoute(ppvCount+1)" #tooltip="matTooltip" matTooltip="{{ppvName}} {{ppvCount+1}}" matTooltipPosition="right">
+                            <mat-icon>keyboard_double_arrow_right</mat-icon>
+                        </button>
                     </div>
-                </mat-expansion-panel>
-            </mat-accordion>
-        </mat-card-content>
+    
+                    <div fxflex>
+                        <button mat-raised-button (click)="openAddDialog()" matTooltip="Add New Match" matTooltipPosition="left">
+                            <mat-icon>add_circle_outline</mat-icon>
+                        </button>
+                    </div>
+                </div>
 
-        <mat-divider inset></mat-divider>
+                <mat-card-content *ngIf="isNoRecord" class="no-record" fxLayoutAlign="center center">No match found</mat-card-content>
+    
+                <mat-card-content *ngIf="!isNoRecord">
+                    <mat-accordion class="match-accordion" multi>
+                        <mat-expansion-panel *ngFor="let ppvmatch of ppvmatch; let i = index">
+                            <mat-expansion-panel-header>
+                                <div class="match-accordion-panel-header-show" [ngClass]="'match-accordion-panel-header-show-'+ppvmatch.matchShow"></div>
+                                <mat-panel-title>
+                                    {{ppvmatch.matchName}}
+                                </mat-panel-title>
 
-        <mat-card-actions fxLayoutGap="10px" fxLayoutAlign="end center">
-            <button mat-flat-button class="button-primary" fxFlex="10%">Done</button>
-        </mat-card-actions>
-    </mat-card>
+                                <mat-panel-description>
+                                    <!-- Type your name and age
+                                    <mat-icon>account_circle</mat-icon> -->
+                                </mat-panel-description>
+
+                                <button mat-icon-button class="match-accordion-panel-header-button" #tooltip="matTooltip" matTooltip="Edit Match {{ppvmatch.matchId}}" matTooltipPosition="above" (click)="$event.stopPropagation();">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+
+                                <button mat-icon-button class="match-accordion-panel-header-button-margin" #tooltip="matTooltip" matTooltip="Delete Match {{ppvmatch.matchId}}" matTooltipPosition="above" (click)="$event.stopPropagation();">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </mat-expansion-panel-header>
+                            
+                            <div class="match-card-container" fxLayout="row wrap" fxLayout.sm="column" fxLayoutAlign="center">
+                                <mat-card class="match-card" 
+                                [ngClass]="{'match-card-result-winner': team.isWinner === true, 'match-card-result-loser': team.isWinner === false}"
+                                *ngFor="let team of ppvmatch.matchInfo" fxLayout="column" 
+                                (click)="winner(team.teamNumber, ppvmatch.matchId)">
+                                    <mat-form-field appearance="outline" *ngFor="let participant of team.teamParticipant">
+                                        <input matInput value="{{participant.participantName}}" disabled>
+                                    </mat-form-field>
+                                    <span class="match-card-status-text" *ngIf="team.isWinner">Winner</span>
+                                </mat-card>
+                            </div>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </mat-card-content>
+    
+                <mat-divider inset></mat-divider>
+    
+                <mat-card-actions *ngIf="!isNoRecord" fxLayoutGap="10px" fxLayoutAlign="end center">
+                    <button mat-flat-button class="button-primary" fxFlex="10%">Done</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+    
+    <div *ngIf="ppvListScreen" fxFlex="15">
+        <div>
+            <app-ppv-list [ppvId]="ppvId" [ppvCount]="ppvCount"></app-ppv-list>
+        </div>
+    </div>
 </div>

@@ -1,0 +1,82 @@
+<mat-dialog-content class="dialog-header" fxLayout="row">
+    <h2 mat-dialog-title>Add New Match</h2>
+
+    <span class="spacer"></span>
+
+    <button mat-icon-button class="dialog-close-button" matTooltip="Close" [mat-dialog-close]>
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-dialog-content>
+
+<div>
+    <span>{{ppvName}}</span>
+    <span>{{matchTitle}}</span>
+</div>
+
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="dialog-content">       
+    <mat-dialog-content fxfLayout="column" fxLayoutGap="10px">
+    
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>title</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Match Title</mat-label>
+                <mat-select formControlName="ctrl_matchtitleid" placeholder="Select Match Title" matTooltip="Click to select match title" required>
+                    <mat-option *ngFor="let data of matchTitleList" [value]="data.matchTitleId" (click)="changeMatchTitle(data.matchTitleName)"><span>{{data.matchTitleName}}</span></mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_matchtitleid'].hasError('required')">
+                    Title of Match is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div *ngIf="matchTitle == 'No Title'" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>picture_in_picture</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Match Name</mat-label>
+                <input matInput formControlName="ctrl_ppvmatchname" placeholder="Title of Match" autocomplete="off" required>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_ppvmatchname'].hasError('required')">
+                    Title of Match is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>title</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Match Type</mat-label>
+                <mat-select formControlName="ctrl_matchtypeid" placeholder="Select Match Type" matTooltip="Click to select match type" required>
+                    <mat-option *ngFor="let data of matchTypeList" [value]="data.matchTypeId"><span>{{data.matchTypeName}}</span></mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_matchtypeid'].hasError('required')">
+                    Type of Match is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>title</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Match Format</mat-label>
+                <mat-select formControlName="ctrl_matchformatid" placeholder="Select Match Format" matTooltip="Click to select match format" required>
+                    <mat-option *ngFor="let data of matchFormatList" [value]="data.matchFormatId"><span>{{data.matchFormatName}}</span></mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_matchformatid'].hasError('required')">
+                    Format of Match is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        
+    </mat-dialog-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-dialog-actions fxLayoutAlign="end center">
+        <button type="submit" mat-raised-button fxFlex="20%" matTooltip="Save">Save</button>
+    </mat-dialog-actions>   
+    
+    <!-- <pre>{{formGroup.value | json}}</pre> -->
+</form>

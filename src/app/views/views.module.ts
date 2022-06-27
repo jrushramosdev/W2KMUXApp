@@ -16,7 +16,7 @@ import { NgxSpinnerComponent } from '../shared/components/ngx-spinner/ngx-spinne
     MainContentComponent,
     FooterComponent,
     ResponseDialogComponent,
-    NgxSpinnerComponent,
+    NgxSpinnerComponent
   ],
   entryComponents: [
     ResponseDialogComponent
@@ -26,7 +26,9 @@ import { NgxSpinnerComponent } from '../shared/components/ngx-spinner/ngx-spinne
     ViewsRoutingModule,
     MaterialModule
   ],
-  providers: [NgxSpinnerComponent],
+  providers: [
+    NgxSpinnerComponent
+  ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ]

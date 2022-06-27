@@ -37,12 +37,10 @@ export class SidebarComponent implements OnInit {
   toggleCollapse() {
     this.collapsed = !this.collapsed;
     this.onToggleSideNav.emit({collapsed: this.collapsed, screeWidth: this.screenWidth});
-    console.log(this.onToggleSideNav)
   }
 
   closeSidenav() {
     this.collapsed = false;
     this.onToggleSideNav.emit({collapsed: this.collapsed, screeWidth: this.screenWidth})
-    console.log(this.onToggleSideNav)
   }
 }

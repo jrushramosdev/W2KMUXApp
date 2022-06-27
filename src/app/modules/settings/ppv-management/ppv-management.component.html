@@ -26,41 +26,43 @@
         <mat-card-content *ngIf="isNoRecord" class="no-record" fxLayoutAlign="center center">No record/s found</mat-card-content>
 
         <mat-card-content *ngIf="!isNoRecord" class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource" matSort class="table-container">
-              
-                <ng-container matColumnDef="ppvName">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-                    <td mat-cell *matCellDef="let element"> {{element.ppvName}} </td>
-                </ng-container>
+            <div class="table-fixed-height-container">
+                <table mat-table [dataSource]="dataSource" matSort class="table-container">
+                
+                    <ng-container matColumnDef="ppvName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.ppvName}} </td>
+                    </ng-container>
 
-                <ng-container matColumnDef="ppvMonth">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Month </th>
-                    <td mat-cell *matCellDef="let element"> {{element.ppvMonth}} </td>
-                </ng-container>
+                    <ng-container matColumnDef="ppvMonth">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Month </th>
+                        <td mat-cell *matCellDef="let element"> {{element.ppvMonth}} </td>
+                    </ng-container>
 
-                <ng-container matColumnDef="showName">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Show </th>
-                    <td mat-cell *matCellDef="let element"> {{element.showName === "Free Agent" ? "All": element.showName}} </td>
-                </ng-container>
+                    <ng-container matColumnDef="showName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Show </th>
+                        <td mat-cell *matCellDef="let element"> {{element.showName === "Free Agent" ? "All": element.showName}} </td>
+                    </ng-container>
 
-                <ng-container matColumnDef="ppvOrder">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Order </th>
-                    <td mat-cell *matCellDef="let element"> {{element.ppvOrder}} </td>
-                </ng-container>
+                    <ng-container matColumnDef="ppvOrder">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Order </th>
+                        <td mat-cell *matCellDef="let element"> {{element.ppvOrder}} </td>
+                    </ng-container>
 
-                <ng-container matColumnDef="action">
-                    <th mat-header-cell *matHeaderCellDef style="text-align: end;"> Action </th>
-                    <td mat-cell *matCellDef="let element" style="text-align: end;">
-                        <button mat-icon-button class="hover-color-green" (click)="openEditDialog(element)" matTooltip="Edit PPV" matTooltipPosition="left"><mat-icon>edit</mat-icon></button>
-                        <button mat-icon-button class="hover-color-red" (click)="onDelete(element)" matTooltip="Delete PPV" matTooltipPosition="right"><mat-icon>delete</mat-icon></button>
-                    </td>
-                </ng-container>
-              
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef style="text-align: end;"> Action </th>
+                        <td mat-cell *matCellDef="let element" style="text-align: end;">
+                            <button mat-icon-button class="hover-color-green" (click)="openEditDialog(element)" matTooltip="Edit PPV" matTooltipPosition="left"><mat-icon>edit</mat-icon></button>
+                            <button mat-icon-button class="hover-color-red" (click)="onDelete(element)" matTooltip="Delete PPV" matTooltipPosition="right"><mat-icon>delete</mat-icon></button>
+                        </td>
+                    </ng-container>
+                
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
 
-            <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of PPV"></mat-paginator>
+            <mat-paginator [pageSize]="100" [pageSizeOptions]="[100]" aria-label="Select page of PPV"></mat-paginator>
         </mat-card-content>
 
         <mat-divider inset></mat-divider>

@@ -137,11 +137,19 @@ $colors: (
     }
 
     .match-accordion-panel-header-button {
-        margin-right: 15px;
         color: ColorScheme(BluePrimaryColor);
     }
 
     .match-accordion-panel-header-button:hover {
+        color: ColorScheme(WhitePrimaryColor);
+    }
+
+    .match-accordion-panel-header-button-margin {
+        margin-right: 15px;
+        color: ColorScheme(BluePrimaryColor);
+    }
+
+    .match-accordion-panel-header-button-margin:hover {
         color: ColorScheme(WhitePrimaryColor);
     }
 }
@@ -299,6 +307,53 @@ $colors: (
 .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
     background-color: ColorScheme(BluePrimaryColor) !important; 
 }
+
+.ppv-list-container {
+    cursor: pointer;
+    text-decoration: none;
+
+    .ppv-list-link {
+        color: ColorScheme(BlackPrimaryColor) !important;
+    }
+    
+    .dot {
+        width:14px;
+        height:14px;
+        background: ColorScheme(BlackSecondaryColor) !important;
+        border-radius:7px;
+    }
+    
+    .line {
+        height:32px;
+        width:2px;
+        background: ColorScheme(BlackSecondaryColor) !important;
+        margin-left:6px;
+    }
+}
+
+.ppv-list-container:hover {
+    .ppv-list-link {
+        transform: translateY(-2px);
+        font-size: 16px;
+        color: ColorScheme(BluePrimaryColor) !important;
+    }
+
+    .dot {
+        background: ColorScheme(BluePrimaryColor) !important;
+    }
+}
+
+.ppvactive {
+    .ppv-list-link {
+        font-size: 16px;
+        color: ColorScheme(BluePrimaryColor) !important; 
+    }
+
+    .dot {
+        background: ColorScheme(BluePrimaryColor) !important;
+    }
+}
+
 
 //** Sidenav*/
 .sidenav {

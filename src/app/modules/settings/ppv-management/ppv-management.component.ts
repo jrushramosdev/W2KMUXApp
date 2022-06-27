@@ -21,9 +21,10 @@ export class PpvManagementComponent implements OnInit, AfterViewInit  {
   displayedColumns: string[] = ['ppvName','ppvMonth','showName','ppvOrder','action'];
   dataSource: MatTableDataSource<PPVManagement>;
 
-  ppvManagement!: PPVManagement[];
+  ppvManagement: PPVManagement[] = [];
   isNoRecord: boolean = true;
   checked: boolean = false;
+
 
   //* Workaround for paginator and sort work with *ngIf
   @ViewChild(MatPaginator) set matPaginator(paginator: MatPaginator) {

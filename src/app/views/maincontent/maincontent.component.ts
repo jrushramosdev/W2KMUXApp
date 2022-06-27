@@ -22,7 +22,5 @@ export class MainContentComponent implements OnInit {
   onToggleSideNav(data: SideNavToggle) {
     this.screenWidth = data.screeWidth;
     this.isSideNavCollapsed = data.collapsed;
-    console.log(this.screenWidth)
-    console.log(this.isSideNavCollapsed)
   }
 }

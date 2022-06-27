@@ -1,1 +1,45 @@
-<p>edit-matchtitle-dialog works!</p>
+<mat-dialog-content class="dialog-header" fxLayout="row">
+    <h2 mat-dialog-title>Edit Match Title</h2>
+
+    <span class="spacer"></span>
+
+    <button mat-icon-button class="dialog-close-button" matTooltip="Close" [mat-dialog-close]>
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-dialog-content>
+
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="dialog-content">       
+    <mat-dialog-content fxfLayout="column" fxLayoutGap="10px">
+    
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>picture_in_picture</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Match Title Name</mat-label>
+                <input matInput formControlName="ctrl_matchtitlename" placeholder="Name of Match Title" autocomplete="off" required>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_matchtitlename'].hasError('required')">
+                    Name of Match Title is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>list</mat-icon>
+            <mat-form-field appearance="legacy" fxFlex="80%"> 
+                <mat-label>Match Title Order</mat-label>
+                <input matInput type="number" min="1" formControlName="ctrl_matchtitleorder" placeholder="Order of Match Title" autocomplete="off" required>
+
+                <mat-error *ngIf="formGroup.controls['ctrl_matchtitleorder'].hasError('required')">
+                    Order of Match Title is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+    </mat-dialog-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-dialog-actions fxLayoutAlign="end center">
+        <button type="submit" mat-raised-button fxFlex="20%" matTooltip="Update">Update</button>
+    </mat-dialog-actions> 
+</form>
