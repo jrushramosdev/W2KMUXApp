@@ -9,6 +9,7 @@ import { ShowManagementService } from '../../../shared/services/show-management.
 import { ResponseDialogService } from '../../../shared/components/response-dialog/response-dialog.service';
 import { SnackbarService } from '../../../shared/components/snackbar/snackbar.service';
 import { NgxSpinnerService } from '../../../shared/components/ngx-spinner/ngx-spinner.service';
+import { ErrorHandlerService } from 'src/app/shared/components/error-handling/error-handler.service';
 import { ShowManagement } from '../../../models/show-management';
 
 @Component({
@@ -38,7 +39,8 @@ export class ShowManagementComponent implements OnInit, AfterViewInit {
     private service: ShowManagementService,
     private responseDialogService: ResponseDialogService,
     private snackbarService: SnackbarService,
-    private ngxSpinnerService: NgxSpinnerService
+    private ngxSpinnerService: NgxSpinnerService,
+    private errorHandlerService: ErrorHandlerService
   ) { 
     this.dataSource = new MatTableDataSource(this.showManagement);
   }
@@ -94,10 +96,7 @@ export class ShowManagementComponent implements OnInit, AfterViewInit {
         this.ngxSpinnerService.stop();
       }, error => {
         this.ngxSpinnerService.stop();
-        if (error.status == 0) {this.snackbarService.openSnackBar("Network Error, The network connection is lost", "close");}
-        else {
-          if (error.error.ErrorMessage == undefined || error.error.ErrorMessage == "") {this.snackbarService.openSnackBar(error.error, "close");}
-          else {this.snackbarService.openSnackBar(error.error.ErrorMessage, "close");}}
+        this.snackbarService.openSnackBar(this.errorHandlerService.errorHandling(error), "close");
         this.isNoRecord = true;
       }
     );
@@ -118,10 +117,7 @@ export class ShowManagementComponent implements OnInit, AfterViewInit {
               this.ngOnInit();
             }, error => {
               this.ngxSpinnerService.stop();
-              if (error.status == 0) {this.snackbarService.openSnackBar("Network Error, The network connection is lost", "close");}
-              else {
-                if (error.error.ErrorMessage == undefined || error.error.ErrorMessage == "") {this.snackbarService.openSnackBar(error.error, "close");}
-                else {this.snackbarService.openSnackBar(error.error.ErrorMessage, "close");}}
+              this.snackbarService.openSnackBar(this.errorHandlerService.errorHandling(error), "close");
             }
           );
         }

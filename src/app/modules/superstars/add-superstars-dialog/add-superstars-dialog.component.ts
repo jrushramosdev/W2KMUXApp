@@ -7,6 +7,7 @@ import { SuperstarsService } from '../../../shared/services/superstars.service';
 import { ResponseDialogService } from '../../../shared/components/response-dialog/response-dialog.service';
 import { SnackbarService } from '../../../shared/components/snackbar/snackbar.service';
 import { NgxSpinnerService } from '../../../shared/components/ngx-spinner/ngx-spinner.service';
+import { ErrorHandlerService } from 'src/app/shared/components/error-handling/error-handler.service';
 import { AddSuperstars } from '../../../models/superstars';
 
 @Component({
@@ -38,7 +39,8 @@ export class AddSuperstarsDialogComponent implements OnInit {
     private superstarsservice: SuperstarsService,
     private responseDialogService: ResponseDialogService,
     private snackbarService: SnackbarService,
-    private ngxSpinnerService: NgxSpinnerService
+    private ngxSpinnerService: NgxSpinnerService,
+    private errorHandlerService: ErrorHandlerService
   ) { }
 
   ngOnInit(): void {
@@ -60,8 +62,8 @@ export class AddSuperstarsDialogComponent implements OnInit {
         this.ngxSpinnerService.stop();
       }, error => {
         this.ngxSpinnerService.stop();
-        if (error.status == 0) {return this.snackbarService.openSnackBar("Network Error, The network connection is lost", "close");}
-        else {this.snackbarService.openSnackBar(error.error, "close");}
+        this.snackbarService.openSnackBar(this.errorHandlerService.errorHandling(error), "close");
+        this.dialogref.close();
       }
     );
   }
@@ -75,8 +77,8 @@ export class AddSuperstarsDialogComponent implements OnInit {
         this.ngxSpinnerService.stop();
       }, error => {
         this.ngxSpinnerService.stop();
-        if (error.status == 0) {return this.snackbarService.openSnackBar("Network Error, The network connection is lost", "close");}
-        else {this.snackbarService.openSnackBar(error.error, "close");}
+        this.snackbarService.openSnackBar(this.errorHandlerService.errorHandling(error), "close");
+        this.dialogref.close();
       }
     );
   }
@@ -93,8 +95,7 @@ export class AddSuperstarsDialogComponent implements OnInit {
           this.dialogref.close('success');
         }, error => {
           this.ngxSpinnerService.stop();
-          if (error.status == 0) {return this.snackbarService.openSnackBar("Network Error, The network connection is lost", "close");}
-          else {this.snackbarService.openSnackBar(error.error, "close");}
+          this.snackbarService.openSnackBar(this.errorHandlerService.errorHandling(error), "close");
         }
       );
     }

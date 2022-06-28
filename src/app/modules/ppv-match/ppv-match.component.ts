@@ -6,6 +6,7 @@ import { PpvMatchService } from '../../shared/services/ppv-match.service';
 import { ResponseDialogService } from '../../shared/components/response-dialog/response-dialog.service';
 import { SnackbarService } from '../../shared/components/snackbar/snackbar.service';
 import { NgxSpinnerService } from '../../shared/components/ngx-spinner/ngx-spinner.service';
+import { ErrorHandlerService } from 'src/app/shared/components/error-handling/error-handler.service';
 import { PPVMatchLatest } from 'src/app/models/ppv-match';
 
 @Component({
@@ -45,6 +46,7 @@ export class PpvMatchComponent implements OnInit {
     private service: PpvMatchService,
     private responseDialogService: ResponseDialogService,
     private snackbarService: SnackbarService,
+    private errorHandlerService: ErrorHandlerService,
     private ngxSpinnerService: NgxSpinnerService
   ) { 
     this.getRouteParameter();
@@ -93,10 +95,7 @@ export class PpvMatchComponent implements OnInit {
         this.router.navigate(['/ppvmatch/',this.ppvId,this.ppvCount]);
       }, error => {
         this.ngxSpinnerService.stop();
-        if (error.status == 0) {this.snackbarService.openSnackBar("Network Error, The network connection is lost", "close");}
-        else {
-          if (error.error.ErrorMessage == undefined || error.error.ErrorMessage == "") {this.snackbarService.openSnackBar(error.error, "close");}
-          else {this.snackbarService.openSnackBar(error.error.ErrorMessage, "close");}}
+        this.snackbarService.openSnackBar(this.errorHandlerService.errorHandling(error), "close");
       }
     );
   }
@@ -111,10 +110,7 @@ export class PpvMatchComponent implements OnInit {
         this.ngxSpinnerService.stop();
       }, error => {
         this.ngxSpinnerService.stop();
-        if (error.status == 0) {this.snackbarService.openSnackBar("Network Error, The network connection is lost", "close");}
-        else {
-          if (error.error.ErrorMessage == undefined || error.error.ErrorMessage == "") {this.snackbarService.openSnackBar(error.error, "close");}
-          else {this.snackbarService.openSnackBar(error.error.ErrorMessage, "close");}}
+        this.snackbarService.openSnackBar(this.errorHandlerService.errorHandling(error), "close");
       }
     );
   }
