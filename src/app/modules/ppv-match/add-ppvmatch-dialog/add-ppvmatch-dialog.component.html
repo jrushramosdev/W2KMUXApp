@@ -1,5 +1,5 @@
 <mat-dialog-content class="dialog-header" fxLayout="row">
-    <h2 mat-dialog-title>Add New Match</h2>
+    <h2 mat-dialog-title>Add New Match for {{ppvName}}</h2>
 
     <span class="spacer"></span>
 
@@ -8,68 +8,131 @@
     </button>
 </mat-dialog-content>
 
-<div>
-    <span>{{ppvName}}</span>
-    <span>{{matchTitle}}</span>
-</div>
-
-<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="dialog-content">       
+<form [formGroup]="nestedFormGroup" (ngSubmit)="onSubmit()" class="dialog-content">   
     <mat-dialog-content fxfLayout="column" fxLayoutGap="10px">
+        <div fxfLayout="row">
+            <div fxfLayout="column" fxLayoutGap="10px" fxFlex="50%">
+                <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+                    <mat-icon>slideshow</mat-icon>
+                    <mat-form-field appearance="legacy" fxFlex="80%"> 
+                        <mat-label>Show</mat-label>
+                        <mat-select formControlName="ctrl_showid" placeholder="Select Match Title" matTooltip="Click to select show" required>
+                            <mat-option *ngFor="let data of showList" [value]="data.showId"><span>{{data.showName === "Free Agent" ? "All": data.showName}}</span></mat-option>
+                        </mat-select>
+        
+                        <mat-error *ngIf="nestedFormGroup.controls['ctrl_showid'].hasError('required')">
+                            Show is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            
+                <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+                    <mat-icon>picture_in_picture</mat-icon>
+                    <mat-form-field appearance="legacy" fxFlex="80%"> 
+                        <mat-label>Match Title</mat-label>
+                        <mat-select formControlName="ctrl_matchtitleid" placeholder="Select Match Title" matTooltip="Click to select match title" required>
+                            <mat-option *ngFor="let data of matchTitleList" [value]="data.matchTitleId" (click)="changeMatchTitle(data.matchTitleName)"><span>{{data.matchTitleName}}</span></mat-option>
+                        </mat-select>
+        
+                        <mat-error *ngIf="nestedFormGroup.controls['ctrl_matchtitleid'].hasError('required')">
+                            Title of Match is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+        
+                <div *ngIf="matchTitle == 'No Title'" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+                    <mat-icon>picture_in_picture</mat-icon>
+                    <mat-form-field appearance="legacy" fxFlex="80%"> 
+                        <mat-label>Match Name</mat-label>
+                        <input matInput [formControl]="ctrl_customppvname" placeholder="Title of Match" autocomplete="off">
+                    </mat-form-field>
+                </div>
+            </div>
+            
+            <div fxfLayout="column" fxLayoutGap="10px" fxFlex="50%">
+                <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+                    <mat-icon>title</mat-icon>
+                    <mat-form-field appearance="legacy" fxFlex="80%"> 
+                        <mat-label>Match Type</mat-label>
+                        <mat-select formControlName="ctrl_matchtypeid" placeholder="Select Match Type" matTooltip="Click to select match type" required>
+                            <mat-option *ngFor="let data of matchTypeList" [value]="data.matchTypeId" (click)="changeMatchType(data)"><span>{{data.matchTypeName}}</span></mat-option>
+                        </mat-select>
     
-        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-            <mat-icon>title</mat-icon>
-            <mat-form-field appearance="legacy" fxFlex="80%"> 
-                <mat-label>Match Title</mat-label>
-                <mat-select formControlName="ctrl_matchtitleid" placeholder="Select Match Title" matTooltip="Click to select match title" required>
-                    <mat-option *ngFor="let data of matchTitleList" [value]="data.matchTitleId" (click)="changeMatchTitle(data.matchTitleName)"><span>{{data.matchTitleName}}</span></mat-option>
-                </mat-select>
-
-                <mat-error *ngIf="formGroup.controls['ctrl_matchtitleid'].hasError('required')">
-                    Title of Match is <strong>required</strong>
-                </mat-error>
-            </mat-form-field>
-        </div>
-
-        <div *ngIf="matchTitle == 'No Title'" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-            <mat-icon>picture_in_picture</mat-icon>
-            <mat-form-field appearance="legacy" fxFlex="80%"> 
-                <mat-label>Match Name</mat-label>
-                <input matInput formControlName="ctrl_ppvmatchname" placeholder="Title of Match" autocomplete="off" required>
-
-                <mat-error *ngIf="formGroup.controls['ctrl_ppvmatchname'].hasError('required')">
-                    Title of Match is <strong>required</strong>
-                </mat-error>
-            </mat-form-field>
-        </div>
-
-        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-            <mat-icon>title</mat-icon>
-            <mat-form-field appearance="legacy" fxFlex="80%"> 
-                <mat-label>Match Type</mat-label>
-                <mat-select formControlName="ctrl_matchtypeid" placeholder="Select Match Type" matTooltip="Click to select match type" required>
-                    <mat-option *ngFor="let data of matchTypeList" [value]="data.matchTypeId"><span>{{data.matchTypeName}}</span></mat-option>
-                </mat-select>
-
-                <mat-error *ngIf="formGroup.controls['ctrl_matchtypeid'].hasError('required')">
-                    Type of Match is <strong>required</strong>
-                </mat-error>
-            </mat-form-field>
-        </div>
-
-        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-            <mat-icon>title</mat-icon>
-            <mat-form-field appearance="legacy" fxFlex="80%"> 
-                <mat-label>Match Format</mat-label>
-                <mat-select formControlName="ctrl_matchformatid" placeholder="Select Match Format" matTooltip="Click to select match format" required>
-                    <mat-option *ngFor="let data of matchFormatList" [value]="data.matchFormatId"><span>{{data.matchFormatName}}</span></mat-option>
-                </mat-select>
-
-                <mat-error *ngIf="formGroup.controls['ctrl_matchformatid'].hasError('required')">
-                    Format of Match is <strong>required</strong>
-                </mat-error>
-            </mat-form-field>
+                        <mat-error *ngIf="nestedFormGroup.controls['ctrl_matchtypeid'].hasError('required')">
+                            Type of Match is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+    
+                <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+                    <mat-icon>format_list_numbered</mat-icon>
+                    <mat-form-field appearance="legacy" fxFlex="80%"> 
+                        <mat-label>Match Format</mat-label>
+                        <mat-select formControlName="ctrl_matchformatid" placeholder="Select Match Format" matTooltip="Click to select match format" required>
+                            <mat-option *ngFor="let data of matchFormatList" [value]="data.matchFormatId" (click)="changeMatchFormat(data)"><span>{{data.matchFormatName}}</span></mat-option>
+                        </mat-select>
+    
+                        <mat-error *ngIf="nestedFormGroup.controls['ctrl_matchformatid'].hasError('required')">
+                            Format of Match is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
         </div>
         
+        <mat-divider></mat-divider>
+
+        <div *ngIf="nestedFormGroup.controls['ctrl_matchformatid'].value != ''">
+            <div  formArrayName="fa_matchteam" class="match-card-container" fxLayout="row wrap" fxLayout.sm="column" fxLayoutAlign="center">
+                <div *ngFor="let matchteam of matchTeamGroup().controls; let iteam=index">
+                    <mat-card formGroupName="{{iteam}}" class="mat-elevation-z4 margin-bottom">
+                        <div formArrayName="fa_matchparticipant" fxLayout="column" fxLayoutAlign="center">
+                            <span>Team {{iteam+1}}</span> 
+                            <div *ngFor="let matchparticipant of matchParticipantGroup(iteam).controls; let iparticipant=index">
+                                <div formGroupName="{{iparticipant}}">
+                                    <mat-form-field appearance="outline">
+                                        <input matInput formControlName="ctrl_superstarid" [matAutocomplete]="superstar" required>
+                                            <mat-autocomplete #superstar="matAutocomplete" [displayWith]="displayFn">
+                                                <mat-option *ngFor="let superstar of filteredSuperstarList[getnumber(iteam,iparticipant)] | async" [value]="superstar">
+                                                    {{superstar.superstarName}}
+                                                </mat-option>
+                                            </mat-autocomplete>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+    
+                <mat-divider></mat-divider>
+            </div>
+
+            <div fxLayout="column" fxLayoutGap="10px">
+                <mat-checkbox formControlName="ctrl_ischampionship">Championship Match</mat-checkbox>
+                
+                <div *ngIf="nestedFormGroup.controls['ctrl_ischampionship'].value == true" fxLayout="row" fxLayoutAlign="center center">
+                    <mat-form-field appearance="fill" fxFlex="100%">
+                        <mat-label>Championship</mat-label>
+                        <mat-chip-list #chipList aria-label="Fruit selection">
+                        <mat-chip *ngFor="let championship of championship; let ichamp=index" (removed)="removeChamp(ichamp)">
+                            {{championship.championshipName}}
+                            <button matChipRemove>
+                            <mat-icon>cancel</mat-icon>
+                            </button>
+                        </mat-chip>
+                        <input placeholder="Add Championship..." [formControl]="ctrl_championship" [matAutocomplete]="auto" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+                        </mat-chip-list>
+
+                        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedChamp($event)">
+                            <mat-option *ngFor="let champions of filteredChampList | async" [value]="champions.championshipName">
+                                {{champions.championshipName}} | {{champions.showName === "Free Agent" ? "All": champions.showName}} 
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
     </mat-dialog-content>
 
     <mat-divider></mat-divider>
@@ -78,5 +141,7 @@
         <button type="submit" mat-raised-button fxFlex="20%" matTooltip="Save">Save</button>
     </mat-dialog-actions>   
     
-    <!-- <pre>{{formGroup.value | json}}</pre> -->
+    <!-- <pre>{{nestedFormGroup.value | json}}</pre> -->
 </form>
+
+

@@ -71,3 +71,9 @@ export interface ChampionsSuperstar {
     superstarId: string;
     superstarName: string;
 }
+
+//* PPV Match /
+export interface PPVMatchChampionship {
+    championshipId: string;
+    championshipName: string;
+}
