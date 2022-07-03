@@ -162,4 +162,8 @@ export class PpvMatchService {
   addPPVMatch(ppvmatch: AddPPVMatch) {
     return this.http.post(this.baseUrl + this.ppvMatchApi + '/AddPPVMatch', ppvmatch);
   }
+
+  deletePPVMatch(id: string) {
+    return this.http.delete(this.baseUrl + this.ppvMatchApi + '/DeletePPVMatch/'+ id);
+  }
 }

@@ -327,19 +327,13 @@ export class AddPpvmatchDialogComponent implements OnInit {
       ctrl_ppvmatchname: this.ppvMatchName
     });
 
-    console.log(this.nestedFormGroup.value)
     if (this.nestedFormGroup.valid) {
       this.patchPPVMatchChampionship();
-
-      console.log(this.addPPVMatchData())
-
       this.ngxSpinnerService.start("SAVING");
-
       this.ppvMatchService.addPPVMatch(this.addPPVMatchData()).subscribe(
         (result: any) => {
           this.ngxSpinnerService.stop();
           this.responseDialogService.start("SUCCESS", result);
-          this.nestedFormGroup.reset();
           this.dialogref.close('success');
         }, error => {
           this.ngxSpinnerService.stop();

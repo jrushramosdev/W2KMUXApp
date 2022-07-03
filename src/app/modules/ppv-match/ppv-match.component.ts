@@ -26,7 +26,7 @@ export class PpvMatchComponent implements OnInit {
   screenWidth: number = 0;
   ppvListScreen: boolean = true;
 
-  public ppvmatch: Array<any> = [];
+  // public ppvmatch: Array<any> = [];
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -53,7 +53,7 @@ export class PpvMatchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.ppvmatch = this.service.getPPVMatchArray();
+    // this.ppvmatch = this.service.getPPVMatchArray();
   }
 
   navigateRoute(count: number) {
@@ -80,8 +80,6 @@ export class PpvMatchComponent implements OnInit {
         // check result > 0
         break;
     }
-    console.log(this.ppvId)
-    console.log(this.ppvCount)
   }
 
   getPPVMatchLatest() {
@@ -106,6 +104,9 @@ export class PpvMatchComponent implements OnInit {
     this.service.getPPVMatchList(ppvid, ppvcount).subscribe(
       (result: any) => {
         this.ppvMatchNestedList = result;
+        if (this.ppvMatchNestedList[0].team != null) {
+          this.isNoRecord = false;
+        }
         this.patchInfo("exact");
         this.ngxSpinnerService.stop();
       }, error => {
@@ -131,12 +132,11 @@ export class PpvMatchComponent implements OnInit {
     }
   }
 
-  winner(teamNumber: number, ppvmatchId: number) {   
-    
-    this.ppvmatch.forEach(ppvmatch => {
-      if (ppvmatch.matchId == ppvmatchId) {        
-        ppvmatch.matchInfo.forEach((teamArray: { teamParticipant: any, teamNumber: number, isWinner: boolean;  }) => {
-          if (teamArray.teamNumber == teamNumber) {
+  winner(ppvmatchteamId: string, ppvmatchId: string) {   
+    this.ppvMatchNestedList.forEach((ppvmatch: { ppvMatchId: string; team: { teamParticipant: any; ppvMatchTeamId: string; isWinner: boolean; }[]; }) => {
+      if (ppvmatch.ppvMatchId == ppvmatchId) {        
+        ppvmatch.team.forEach((teamArray: { teamParticipant: any, ppvMatchTeamId: string, isWinner: boolean;  }) => {
+          if (teamArray.ppvMatchTeamId == ppvmatchteamId) {
             teamArray.isWinner = true;
           }
           else {
@@ -158,7 +158,30 @@ export class PpvMatchComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result != undefined) {
-        this.ngOnInit();
+        this.gatherData(this.ppvCount);
+      }
+    });
+  }
+
+  onDelete(element: any) {
+    let dialog = this.responseDialogService.start("DELETE","Are you sure to delete this PPV Match '"+element.ppvMatchOrder+"'?");
+
+    dialog.afterClosed().subscribe(dialogresult => {
+      if (dialogresult != undefined) {
+        if (dialogresult == "OK") {
+          this.ngxSpinnerService.start("DELETING");
+
+          this.service.deletePPVMatch(element.ppvMatchId).subscribe(
+            (result: any) => {
+              this.ngxSpinnerService.stop();
+              this.responseDialogService.start("SUCCESS", result);
+              this.gatherData(this.ppvCount);
+            }, error => {
+              this.ngxSpinnerService.stop();
+              this.snackbarService.openSnackBar(this.errorHandlerService.errorHandling(error), "close");
+            }
+          );
+        }
       }
     });
   }
